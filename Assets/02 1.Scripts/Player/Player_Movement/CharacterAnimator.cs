@@ -11,6 +11,7 @@ namespace JY.PlatformerBase
         private CharacterGround groundScript;
         private CharacterMovement movementScript;
         private CharacterJump jumpScript;
+        private CharacterHealth healthScript;
         public Animator playerAnimator;
 
         [SerializeField] private GameObject characterSprite;
@@ -41,7 +42,8 @@ namespace JY.PlatformerBase
             movementScript = GetComponent<CharacterMovement>();
             jumpScript = GetComponent<CharacterJump>();
             groundScript = GetComponent<CharacterGround>();
-            // actionScript = GetComponent<CharacterAction>();
+            healthScript = GetComponent<CharacterHealth>();
+          
 
             playerAnimator = GetComponentsInChildren<Animator>()[0];
             //  pipeAnimator = GetComponentsInChildren<Animator>()[1];
@@ -52,50 +54,36 @@ namespace JY.PlatformerBase
         // Update is called once per frame
         void Update()
         {
+
+
+            //animator.SetBool("onGround", groundScript.GetOnGround());
+
+            PlayerRunning();
+            CheckForLanding();
+
+            playerAnimator.SetFloat("velocityY", movementScript.currentVelocity.y);
+        }
+
+        public void PlayerRunning()
+        {
+           
             if (!lockRunningSpeed)
             {
                 runningSpeed = Mathf.Clamp(Mathf.Abs(movementScript.currentVelocity.x), 0, maxRunningSpeed);
                 playerAnimator.SetFloat("runSpeed", runningSpeed);
+               // playerAnimator.speed = runningSpeed;
 
-                if (movementScript.inputDirectinoX != 0 && Mathf.Sign(movementScript.inputDirectinoX) != Mathf.Sign(movementScript.currentVelocity.x)
-                    && !playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Player_Turn"))
-                {
-                    playerAnimator.ResetTrigger("turn");
-                    playerAnimator.SetTrigger("turn");
-                }
+                //if (movementScript.inputDirectinoX != 0 && Mathf.Sign(movementScript.inputDirectinoX) != Mathf.Sign(movementScript.currentVelocity.x)
+                //    && !playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Player_Turn"))
+                //{
+                //    playerAnimator.ResetTrigger("turn");
+                //    playerAnimator.SetTrigger("turn");
+                //}
             }
             else
                 playerAnimator.SetFloat("runSpeed", maxRunningSpeed);
-
-            //animator.SetBool("onGround", groundScript.GetOnGround());
-
-
-            CheckForLanding();
-            // PlayerLook();
         }
-        public void PlayerLook()
-        {
-            //int inputY = (int)movementScript.inputDirectionY;
-
-            //if (groundScript.GetOnGround() && movementScript.currentVelocity == Vector2.zero)
-            //{
-            //    if (inputY != 0 && !isPlayerLooking)
-            //    {
-            //        playerAnimator.SetFloat("inputY", inputY);
-            //        isPlayerLooking = true;
-            //        Debug.Log("바라 봄");
-            //    }
-            //    else if (inputY == 0 && isPlayerLooking)
-            //    {
-            //        isPlayerLooking = false;
-            //        playerAnimator.SetFloat("inputY", inputY);
-            //        Debug.Log("원상태");
-            //    }
-
-
-            //}
-
-        }
+       
 
         public void JumpEffect()
         {
@@ -107,8 +95,12 @@ namespace JY.PlatformerBase
             if (jumpParticle != null)
                 jumpParticle.Play();
 
-            if (!jumpSqueezing && jumpSqueezeMultiplier > 1)
+            if (!jumpSqueezing && jumpSqueezeMultiplier > 1f)
+            {
                 StartCoroutine(jumpSqueeze(jumpSquashSettings.x / jumpSqueezeMultiplier, jumpSquashSettings.y * jumpSqueezeMultiplier, jumpSquashSettings.z, 0, true));
+              
+            }
+               
         }
         public void CheckForLanding()
         {
@@ -167,7 +159,7 @@ namespace JY.PlatformerBase
             Vector3 newPos = new Vector3(0, -dropAmount, 0);
 
             float currentTime = 0;
-            Debug.Log("스쿼시 시작");
+         
             while (currentTime <= 1.0f)
             {
                 currentTime += Time.deltaTime / 0.01f;
@@ -177,7 +169,7 @@ namespace JY.PlatformerBase
             }
 
             currentTime = 0f;
-            Debug.Log("스쿼시 해제");
+           
             while (currentTime <= 1.0f)
             {
                 currentTime += Time.deltaTime / durationTime;
@@ -193,6 +185,9 @@ namespace JY.PlatformerBase
                 landSqueezing = false;
         }
 
-
+        private void CharacterDamaged()
+        {
+            //피격 애니메이션
+        }
     }
 }

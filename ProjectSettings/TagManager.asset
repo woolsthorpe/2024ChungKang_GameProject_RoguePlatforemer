@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - CameraBorder
+  - Bullet
+  - PlayerNoneCollider
   layers:
   - Default
   - TransparentFX
@@ -14,9 +17,9 @@ TagManager:
   - UI
   - Player
   - Ground
-  - 
-  - 
-  - 
+  - CameraBorder
+  - Bullet
+  - PlayerNoneCollider
   - 
   - 
   - 

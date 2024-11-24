@@ -9,6 +9,7 @@ namespace JY.PlatformerBase
     {
         private Rigidbody2D rigid;
         private CharacterGround ground;
+        private CharacterAnimator animaotr;
         private Vector2 currentVelocity;
 
        
@@ -57,6 +58,7 @@ namespace JY.PlatformerBase
         {
             rigid = GetComponent<Rigidbody2D>();
             ground = GetComponent<CharacterGround>();
+            animaotr = GetComponent<CharacterAnimator>();
             defaultGravityScale = 1;
 
             //jumpForce = Mathf.Sqrt(-2f * Physics2D.gravity.y * rigid.gravityScale * jumpHeight);
@@ -118,17 +120,18 @@ namespace JY.PlatformerBase
             Vector2 newGravity =new Vector2(0, (-2 * jumpHeight) / (timeToJumpApex * timeToJumpApex));
             gravityStrength = (newGravity.y / Physics2D.gravity.y);
             rigid.gravityScale = gravityStrength * gravityMultiplier;
-            Debug.Log($"{rigid.gravityScale} = {gravityStrength} * {gravityMultiplier}");
+           // Debug.Log($"{rigid.gravityScale} = {gravityStrength} * {gravityMultiplier}");
 
         }
       
         private void FixedUpdate()
         {
             currentVelocity = rigid.velocity;
-            if (startJump && onGround)
+            if (isCanJump())
             {
                
                 DoAJump();
+                animaotr.JumpEffect();
                 rigid.velocity = currentVelocity;
 
                 return;
@@ -148,8 +151,7 @@ namespace JY.PlatformerBase
 
         private void DoAJump()
         {
-            if( (currentCoyoteTime>=0&&currentCoyoteTime<=coyoteTime))
-            {
+         
                 startJump = false;
                 currentBufferTime = 0;
                 currentCoyoteTime = 0;
@@ -169,7 +171,12 @@ namespace JY.PlatformerBase
               //  rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 currentlyJumping = true;
                 Debug.Log("มกวม");
-            }
+            
+        }
+
+        private bool isCanJump()
+        {
+            return startJump && (onGround || (currentCoyoteTime > 0 && currentCoyoteTime < coyoteTime)) ;
         }
 
         private void CalculateGravity()
