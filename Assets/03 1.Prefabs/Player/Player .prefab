@@ -375,7 +375,7 @@ Transform:
   m_GameObject: {fileID: 1986304949796444857}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.708, y: -0.275, z: 0}
+  m_LocalPosition: {x: -1.51, y: 0.89, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -395,13 +395,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0045e17ecf3cbff49bd4e05d8083805b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0.708, y: -0.275, z: 0}
-  speed: 100
+  offset: {x: -1.51, y: 0.89, z: 0}
+  speed: 10
   character: {fileID: 6778206733428501177}
   shotPos: {fileID: 8261359540499976665}
   bulletObj: {fileID: 6791547767871919087, guid: a7ff3a545e919a444836aa9e40c73968, type: 3}
   currentDelay: 0
-  <maxDelay>k__BackingField: 0
+  <maxDelay>k__BackingField: 0.33
   <shotSpeed>k__BackingField: 0
   <bulletCount>k__BackingField: 0
 --- !u!1 &2735626566488763625
@@ -570,6 +570,7 @@ GameObject:
   - component: {fileID: 2944604327373273785}
   - component: {fileID: 10260697487730284}
   - component: {fileID: 1065106732602514236}
+  - component: {fileID: 3058198214518619041}
   - component: {fileID: 4576159355843513642}
   m_Layer: 6
   m_Name: Player Character
@@ -639,7 +640,7 @@ MonoBehaviour:
   onFrontWall: 0
   onBackWall: 0
   groundCheckPos: {fileID: 6700026944760257621}
-  groundSizeOffset: {x: 0.9, y: 0.1, z: 0}
+  groundSizeOffset: {x: 0.61, y: 0.1, z: 0}
   frontCheckPos: {fileID: 7368820243805220837}
   backCheckPos: {fileID: 5809885305439817361}
   wallSizeOffset: {x: 0.12, y: 0.82, z: 0}
@@ -737,6 +738,25 @@ MonoBehaviour:
   jumpSqueezing: 0
   landSqueezing: 0
   isPlayerLooking: 0
+--- !u!114 &3058198214518619041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5162316283550926735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1222c9d1932a42647b69ce603392ed6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <maxHP>k__BackingField: 10
+  <currentHP>k__BackingField: 0
+  <isDie>k__BackingField: 0
+  invincibilityDuration: 0
+  shakeIntencity: {x: 0, y: 0}
+  shakeVolume: 0
+  shakeDuration: 0
 --- !u!70 &4576159355843513642
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -769,8 +789,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.11081219, y: -0.051863432}
-  m_Size: {x: 0.9559369, y: 2.8350382}
+  m_Offset: {x: 0.13163185, y: -0.058109283}
+  m_Size: {x: 1.1641331, y: 2.84753}
   m_Direction: 0
 --- !u!1 &6798715668686244224
 GameObject:
