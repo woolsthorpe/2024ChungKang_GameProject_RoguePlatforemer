@@ -70,7 +70,7 @@ public class PlayerWeaponGun : MonoBehaviour
     //transform.localScale = new(characterDirection, 1, 1);
 
     var targetPosition = character.position +
-        new Vector3(offset.x * characterDirection, offset.y);
+        new Vector3(offset.x * characterDirection, offset.y+1);
 
     var delta = targetPosition - transform.position;
 

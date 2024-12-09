@@ -40,6 +40,7 @@ public class CharacterHealth : MonoBehaviour
 
     public void GetDamaged(float damage,Transform hitPos)
     {
+        try{
         if (isInvincible||isDie)
             return;
 
@@ -54,6 +55,9 @@ public class CharacterHealth : MonoBehaviour
         else
         {
             StartCoroutine(ColorSwap());
+        }
+        }catch{
+            
         }
       
     }
