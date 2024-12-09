@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01.Senes/PlayerTest_Scene/BossTest_Scene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/01.Senes/GameStartScence.unity
+    guid: 6896b856a07c5e840ac638721b62ec82
+  - enabled: 1
+    path: Assets/01.Senes/EndingScence.unity
+    guid: 69714015d2b323648a55d8407ce09050
+  - enabled: 1
+    path: Assets/01.Senes/PlayerTest_Scene/PlayerTest_Scene 1.unity
+    guid: 7ab8c7414a040cf489be98d412be426b
   m_configObjects: {}

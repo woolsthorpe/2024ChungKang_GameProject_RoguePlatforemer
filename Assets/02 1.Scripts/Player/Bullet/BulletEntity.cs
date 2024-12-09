@@ -64,7 +64,7 @@ public class  BulletEntity :MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
-        Debug.Log("���� " + time);
+       
     }
 
 

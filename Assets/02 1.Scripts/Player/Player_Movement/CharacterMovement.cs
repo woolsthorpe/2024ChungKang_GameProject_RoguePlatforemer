@@ -27,20 +27,19 @@ namespace JY.PlatformerBase
         [SerializeField] private bool useAcceleration=true;
         private float maxSpeedChange;
 
-        [Header("Current State")]
-        [SerializeField] private bool isFreeze;
+     
       
         [SerializeField] private Vector2 desireVelocity;
         [SerializeField] private bool isPressingKey;
         [SerializeField] private bool onGround;
-        public float inputDirectinoX { private set; get; }
+        [field: SerializeField] public float inputDirectinoX { private set; get; }
         public Vector2 currentVelocity;
         private void Awake()
         {
             rigid = GetComponent<Rigidbody2D>();
             ground = GetComponent<CharacterGround>();
             health = GetComponent<CharacterHealth>();
-            isFreeze = false;
+            
         }
 
         private void InputMovement()
@@ -52,8 +51,9 @@ namespace JY.PlatformerBase
         {
             InputMovement();
 
-            if (isFreeze)
+            if (health.isDie)
                 return;
+
 
             //Turn
             if (inputDirectinoX != 0)
@@ -68,17 +68,13 @@ namespace JY.PlatformerBase
           //  Debug.Log(rigid.velocity.y);
         }
 
-        public void Damaged_knockback(Vector2 direction,float amount,float time)
+        public void Damaged_knockback(Vector2 direction,float amount)
         {
-            isFreeze = true;
-            rigid.AddForce(direction.normalized*amount,ForceMode2D.Impulse);
-            StartCoroutine(unlockPlayer(time));
+            
+            rigid.velocity = direction.normalized * amount;
+           
         }
-        IEnumerator unlockPlayer(float time)
-        {
-            yield return new WaitForSeconds(time);
-            isFreeze = false;
-        }
+     
         
         private void FixedUpdate()
         {
@@ -86,11 +82,10 @@ namespace JY.PlatformerBase
             currentVelocity = rigid.velocity;
             onGround = ground.GetOnGround();
 
-            if (isFreeze)
+
+            if (health.isDie)
                 return;
 
-            //���ӵ��� �̿��ؼ� �����ϰ� ��������
-            //�ƴϸ� ���ӵ��� ������� �ʰ� �ﰡ������ ���������� �����Ѵ�.
             if (useAcceleration)
                 RunWIthAcceleration();
             else

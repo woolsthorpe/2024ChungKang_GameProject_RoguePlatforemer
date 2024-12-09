@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+    [SerializeField] private GameObject icon;
     [SerializeField] private List<HpHeartIcon> heartIcons;
     private void Awake()
     {
@@ -22,6 +23,17 @@ public class UIManager : MonoBehaviour
 
     public void ChangeHeartIcon(int current,int max)
     {
+        if(max > heartIcons.Count)
+        {
+            for(int i=0; i< max-heartIcons.Count;i++)
+            {
+                GameObject obj=Instantiate(icon);
+                obj.transform.SetParent(transform.GetChild(0));
+                heartIcons.Add(obj.GetComponent<HpHeartIcon>());
+               
+            }
+        }
+
         for(int i=0;i<max; i++)
         {
             if (i < current)

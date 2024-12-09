@@ -9,6 +9,7 @@ public class PlayerWeaponGun : MonoBehaviour
     [SerializeField] private float speed = 4f;
     [SerializeField] private Transform character;
     [SerializeField] private Transform shotPos;
+    public CharacterHealth health;
 
     private bool inputMouse;
     private float angle;
@@ -32,6 +33,9 @@ public class PlayerWeaponGun : MonoBehaviour
    
     void Update()
     {
+        if (health.isDie)
+            return;
+
         InputKeys();
 
         if(AbleShot())

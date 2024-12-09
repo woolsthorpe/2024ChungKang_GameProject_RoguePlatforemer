@@ -10,6 +10,7 @@ namespace JY.PlatformerBase
         private Rigidbody2D rigid;
         private CharacterGround ground;
         private CharacterAnimator animaotr;
+        private CharacterHealth health;
         private Vector2 currentVelocity;
 
        
@@ -59,6 +60,7 @@ namespace JY.PlatformerBase
             rigid = GetComponent<Rigidbody2D>();
             ground = GetComponent<CharacterGround>();
             animaotr = GetComponent<CharacterAnimator>();
+            health = GetComponent<CharacterHealth>();
             defaultGravityScale = 1;
 
             //jumpForce = Mathf.Sqrt(-2f * Physics2D.gravity.y * rigid.gravityScale * jumpHeight);
@@ -88,6 +90,10 @@ namespace JY.PlatformerBase
         {
             //gravity 대입해주는 함수가 필요
             SetPhysics();
+
+
+            if (health.isDie)
+                return;
 
             InputJump();
 

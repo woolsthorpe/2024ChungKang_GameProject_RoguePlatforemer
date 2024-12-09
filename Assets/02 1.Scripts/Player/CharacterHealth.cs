@@ -18,6 +18,10 @@ public class CharacterHealth : MonoBehaviour
     [SerializeField] private float colorSwapTime;
     [SerializeField] private Color hitColor;
     public bool isDamaged { get; private set; }
+
+    [Header("Knockback")]
+    [SerializeField] private float knockAmount;
+    [SerializeField] private float knockTime;
     [Header("Camera Shake")]
     [SerializeField] private Vector2 shakeIntencity;
     [SerializeField] private float shakeVolume;
@@ -47,13 +51,17 @@ public class CharacterHealth : MonoBehaviour
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         UIManager.instance.ChangeHeartIcon(currentHP, maxHP);
 
-        if (!isDie&&currentHP<=0)
+        if (currentHP<=0)
         {
             isDie = true;
+            animator.CharatcerDeath();
+            StartCoroutine(ColorSwap());
         }
         else
         {
             StartCoroutine(ColorSwap());
+            animator.CharacterDamaged();
+           movement.Damaged_knockback(transform.position- hitPos.position,knockAmount);
         }
       
     }

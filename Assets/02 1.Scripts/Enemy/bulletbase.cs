@@ -13,7 +13,7 @@ public class bulletbase : MonoBehaviour
         
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("collision!");
+      //  Debug.Log("collision!");
         if(other.gameObject.CompareTag("Ground")){
             Destroy(gameObject);
         }else if(other.gameObject.CompareTag("Player")){

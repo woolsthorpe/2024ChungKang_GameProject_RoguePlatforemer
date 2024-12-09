@@ -187,10 +187,18 @@ namespace JY.PlatformerBase
 
         public void CharacterDamaged()
         {
-            //피격 애니메이션
+            
         }
         public void CharatcerDeath()
         {
+            playerAnimator.SetTrigger("die");
+            StartCoroutine(ReTryScene());
+
+        }
+        IEnumerator ReTryScene()
+        {
+            yield return new WaitForSeconds(1.2f);
+            SceneManagers.instance.RetryScene();
 
         }
     }
