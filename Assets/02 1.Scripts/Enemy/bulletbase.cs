@@ -6,7 +6,7 @@ using UnityEngine;
 public class bulletbase : MonoBehaviour
 {
     [SerializeField]
-    float bulletspeed = 0.05f;
+    float bulletspeed = 0.1f;
     float damage = 1;
     void Start()
     {

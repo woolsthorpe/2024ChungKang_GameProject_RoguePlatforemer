@@ -68,7 +68,7 @@ public class Mon2 : Monster
                 ani.SetTrigger("ATK");
                 ATKDelay = 0f;
             }
-            if(Vector2.Distance(transform.position,Player.transform.position) > sleeprange*3){
+            if(Vector2.Distance(transform.position,Player.transform.position) > sleeprange*1.5f){
                 
                 sleep = true;
             }

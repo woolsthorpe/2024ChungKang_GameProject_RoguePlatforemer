@@ -44,6 +44,7 @@ public class CharacterHealth : MonoBehaviour
 
     public void GetDamaged(float damage,Transform hitPos)
     {
+        try{
         if (isInvincible||isDie)
             return;
 
@@ -62,6 +63,9 @@ public class CharacterHealth : MonoBehaviour
             StartCoroutine(ColorSwap());
             animator.CharacterDamaged();
            movement.Damaged_knockback(transform.position- hitPos.position,knockAmount);
+        }
+        }catch{
+            
         }
       
     }
