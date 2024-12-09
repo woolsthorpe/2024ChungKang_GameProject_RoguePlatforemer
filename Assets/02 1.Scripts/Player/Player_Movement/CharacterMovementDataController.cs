@@ -49,6 +49,8 @@ namespace JY.PlatformerBase
             jump.jumpCutOff = data.jumpCutOff;
 
             jump.airJumpCount = data.airJumpCount;
+
+            
         }
     }
 }
