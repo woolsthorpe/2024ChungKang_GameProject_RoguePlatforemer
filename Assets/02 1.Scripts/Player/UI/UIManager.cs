@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
     {
         for(int i=0;i<max; i++)
         {
-            if (i <= current)
+            if (i < current)
                 heartIcons[i].isActiveHeart(true);
             else
                 heartIcons[i].isActiveHeart(false);

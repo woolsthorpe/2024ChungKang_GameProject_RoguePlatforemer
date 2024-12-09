@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 
 namespace JY.PlatformerBase
@@ -8,6 +9,7 @@ namespace JY.PlatformerBase
     {
         private Rigidbody2D rigid;
         private CharacterGround ground;
+        private CharacterHealth health;
 
         [Header("Movement Settings")]
         [Range(0f, 50f)] public float maxSpeed=9.01f;
@@ -26,7 +28,7 @@ namespace JY.PlatformerBase
         private float maxSpeedChange;
 
         [Header("Current State")]
-      
+        [SerializeField] private bool isFreeze;
       
         [SerializeField] private Vector2 desireVelocity;
         [SerializeField] private bool isPressingKey;
@@ -37,6 +39,8 @@ namespace JY.PlatformerBase
         {
             rigid = GetComponent<Rigidbody2D>();
             ground = GetComponent<CharacterGround>();
+            health = GetComponent<CharacterHealth>();
+            isFreeze = false;
         }
 
         private void InputMovement()
@@ -47,6 +51,9 @@ namespace JY.PlatformerBase
         private void Update()
         {
             InputMovement();
+
+            if (isFreeze)
+                return;
 
             //Turn
             if (inputDirectinoX != 0)
@@ -61,13 +68,26 @@ namespace JY.PlatformerBase
           //  Debug.Log(rigid.velocity.y);
         }
 
-      
+        public void Damaged_knockback(Vector2 direction,float amount,float time)
+        {
+            isFreeze = true;
+            rigid.AddForce(direction.normalized*amount,ForceMode2D.Impulse);
+            StartCoroutine(unlockPlayer(time));
+        }
+        IEnumerator unlockPlayer(float time)
+        {
+            yield return new WaitForSeconds(time);
+            isFreeze = false;
+        }
         
         private void FixedUpdate()
         {
         
             currentVelocity = rigid.velocity;
             onGround = ground.GetOnGround();
+
+            if (isFreeze)
+                return;
 
             //���ӵ��� �̿��ؼ� �����ϰ� ��������
             //�ƴϸ� ���ӵ��� ������� �ʰ� �ﰡ������ ���������� �����Ѵ�.

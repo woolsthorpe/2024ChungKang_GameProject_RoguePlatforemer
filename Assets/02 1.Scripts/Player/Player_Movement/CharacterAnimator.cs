@@ -185,9 +185,13 @@ namespace JY.PlatformerBase
                 landSqueezing = false;
         }
 
-        private void CharacterDamaged()
+        public void CharacterDamaged()
         {
             //피격 애니메이션
+        }
+        public void CharatcerDeath()
+        {
+
         }
     }
 }
